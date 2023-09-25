@@ -42,7 +42,7 @@ bucket-create-earthquake:
         --token=$(INFLUX_API_TOKEN) \
 		--name $(EQ_BUCKET)
 
-bucket-delete-bucket:
+bucket-delete-earthquake:
 	docker-compose exec -T \
     	influxdb influx bucket delete  \
         --org $(INFLUX_ORG) \
