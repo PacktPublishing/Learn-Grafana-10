@@ -1,5 +1,5 @@
 IMAGE=python
-TAG=$(IMAGE):ch9
+TAG=$(IMAGE)/ch9
 TZ="America/Los Angeles"
 
 PY_SERVICE=python
@@ -23,10 +23,10 @@ INFLUX_ORG=LearnGrafana
 INFLUX_API_TOKEN=kPL775NB1mn6n7T5kfLSXBNEe9Dy8v6f4fNS1Xvf8B7RgUeKdwG0jaw3uipxyWI5iW3C8WHvuPHsmA6y7AAhzQ==
 
 pull:
-	docker-compose pull
+	docker-compose pull --ignore-buildable
 
 up:
-	docker-compose up --pull missing -d
+	docker-compose up --pull missing -d grafana influxdb
 
 down:
 	docker-compose down
@@ -38,7 +38,7 @@ stop:
 	docker-compose stop
 
 build-$(IMAGE):
-	docker build --pull --tag $(TAG) .
+	docker-compose build
 
 bucket-create-earthquake:
 	docker-compose exec -T \
@@ -73,16 +73,14 @@ bucket-delete-weather:
 bucket-refresh-weather: bucket-delete-weather bucket-create-weather 
 
 dump-earthquake:
-	docker-compose run --rm \
-		--name $(IMAGE) $(PY_SERVICE) \
+	docker-compose run $(PY_SERVICE) \
 		$(EQ_BIN) \
 		--size $(EQ_SIZE) \
 		--window $(EQ_WINDOW) \
 		--output $(EQ_TEMPFILE)
 
 load-earthquake:
-	docker-compose run --rm \
-		--name $(IMAGE) $(PY_SERVICE) \
+	docker-compose run $(PY_SERVICE) \
 		$(EQ_BIN) \
 		--host=$(INFLUX_HOST) \
 		--token=$(INFLUX_API_TOKEN) \
@@ -94,17 +92,16 @@ reload-earthquake: dump-earthquake load-earthquake
 full-load-earthquake: bucket-refresh-earthquake reload-earthquake
 
 dump-weather:
-	docker-compose run --rm \
-		--name $(IMAGE) $(PY_SERVICE) \
+	docker run --rm --network=host -v "$$(PWD):/usr/src/app" \
+		--name $(IMAGE) $(TAG) \
 		$(WX_BIN) \
 		--output $(WX_TEMPFILE) \
 		--stations $(WX_STATIONS)
 
 load-weather:
-	docker-compose run --rm \
-		--name $(IMAGE) $(PY_SERVICE) \
+	docker run --rm --network=host -v "$$(PWD):/usr/src/app" \
+		--name $(IMAGE) $(TAG) \
 		$(WX_BIN) \
-		--host=$(INFLUX_HOST) \
  		--token=$(INFLUX_API_TOKEN) \
 		--input $(WX_TEMPFILE) \
 		--db $(WX_BUCKET)

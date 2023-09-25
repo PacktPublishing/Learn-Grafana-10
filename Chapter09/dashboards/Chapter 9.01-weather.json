@@ -15,7 +15,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "9.4.7"
+      "version": "10.1.2"
     },
     {
       "type": "datasource",
@@ -92,7 +92,7 @@
         "content": "<h1>\n  <center>San Francisco CA (KSFO)</center>\n</h1> ",
         "mode": "html"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.2",
       "title": "Station",
       "type": "text"
     },
@@ -140,7 +140,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.2",
       "targets": [
         {
           "datasource": {
@@ -202,6 +202,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -371,6 +372,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -560,6 +562,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -765,6 +768,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -971,6 +975,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1099,7 +1104,7 @@
           "measurement": "windSpeed",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"value\") FROM \"windSpeed\" WHERE (\"station\" = 'KSFO') AND $timeFilter GROUP BY time($__interval) fill(none)",
+          "query": "SELECT mean(\"value\") FROM \"windSpeed\" WHERE (\"station\"::tag = 'KSFO') AND $timeFilter GROUP BY time($__interval) fill(none)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1155,7 +1160,7 @@
           "measurement": "windGust",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"value\") FROM \"windGust\" WHERE (\"station\" = 'KSFO') AND $timeFilter GROUP BY time($__interval) fill(none)",
+          "query": "SELECT mean(\"value\") FROM \"windGust\" WHERE (\"station\"::tag = 'KSFO') AND $timeFilter GROUP BY time($__interval) fill(none)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1211,7 +1216,7 @@
           "measurement": "windSpeed",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT distinct(\"value\") FROM \"windDirection\" WHERE (\"station\" = 'KSFO') AND $timeFilter GROUP BY time($__interval) fill(none)",
+          "query": "SELECT distinct(\"value\") FROM \"windDirection\" WHERE (\"station\"::tag = 'KSFO') AND $timeFilter GROUP BY time($__interval) fill(none)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -1272,6 +1277,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1412,6 +1418,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1433,7 +1440,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1714,6 +1722,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "stepBefore",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1736,7 +1745,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1851,6 +1861,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1872,7 +1883,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1920,7 +1932,6 @@
     }
   ],
   "refresh": "",
-  "revision": 1,
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -1928,13 +1939,13 @@
     "list": []
   },
   "time": {
-    "from": "now/d",
-    "to": "now"
+    "from": "2023-01-14T08:00:00.000Z",
+    "to": "2023-01-15T07:59:59.000Z"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Chapter 9.01",
+  "title": "Chapter 9.01 Weather",
   "uid": "dTjV-Do4k",
-  "version": 2,
+  "version": 8,
   "weekStart": ""
 }

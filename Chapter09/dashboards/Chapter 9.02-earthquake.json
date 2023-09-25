@@ -21,7 +21,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "9.4.7"
+      "version": "10.1.2"
     },
     {
       "type": "datasource",
@@ -64,6 +64,7 @@
       }
     ]
   },
+  "description": "",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -129,12 +130,12 @@
           "values": true
         },
         "text": {
-          "titleSize": 70,
+          "titleSize": 60,
           "valueSize": 120
         },
         "textMode": "value_and_name"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.2",
       "targets": [
         {
           "datasource": {
@@ -158,7 +159,7 @@
           "measurement": "event",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"magnitude\" FROM \"event\" WHERE $timeFilter AND \"magnitude\" >= 2.0 GROUP BY \"tag_place\", \"tag_time\"",
+          "query": "SELECT \"magnitude\" FROM \"event\" WHERE $timeFilter AND \"magnitude\" >= 2.0 GROUP BY \"tag_place\"::tag, \"tag_time\"::tag",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -277,12 +278,12 @@
           "values": true
         },
         "text": {
-          "titleSize": 70,
+          "titleSize": 60,
           "valueSize": 120
         },
         "textMode": "value_and_name"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.2",
       "targets": [
         {
           "datasource": {
@@ -410,6 +411,7 @@
       },
       "id": 6,
       "options": {
+        "cellHeight": "sm",
         "footer": {
           "countRows": false,
           "fields": "",
@@ -421,7 +423,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.2",
       "targets": [
         {
           "datasource": {
@@ -562,6 +564,7 @@
       },
       "id": 17,
       "options": {
+        "cellHeight": "sm",
         "footer": {
           "countRows": false,
           "fields": "",
@@ -573,7 +576,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.2",
       "targets": [
         {
           "datasource": {
@@ -721,7 +724,7 @@
           "zoom": 5.5
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.2",
       "targets": [
         {
           "datasource": {
@@ -879,7 +882,7 @@
           "zoom": 4
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.2",
       "targets": [
         {
           "datasource": {
@@ -1011,7 +1014,7 @@
           "zoom": 2
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.2",
       "targets": [
         {
           "datasource": {
@@ -1027,7 +1030,6 @@
     }
   ],
   "refresh": "",
-  "revision": 1,
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -1040,8 +1042,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Chapter 9.02",
+  "title": "Chapter 9.02 Earthquake",
   "uid": "2jnC4hTVk",
-  "version": 15,
+  "version": 19,
   "weekStart": ""
 }

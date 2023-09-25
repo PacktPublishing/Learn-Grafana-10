@@ -15,7 +15,7 @@ services:
 
   python:
     build: .
-    image: python:ch9
+    image: "python/ch9"
     environment:
       TZ: "America/Los_Angeles"
     volumes:
