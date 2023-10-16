@@ -1,18 +1,16 @@
-IMAGE=weather
-TAG=$(IMAGE)/ch7
+CHAPTER=ch7
+IMAGE=python
+TAG=$(IMAGE)/$(CHAPTER)
 
-WX_BIN=weather.py
-WX_TEMPFILE=data/wx.txt
-WX_STATIONS=KSFO,KDEN,KSTL,KJFK
+APPPATH=/usr/src/app
+APP=weather.py
+TEMPFILE=/data/wx.txt
+STATIONS=KSFO,KDEN,KSTL,KJFK
 
 INFLUX_URL=http://influxdb:8086
 INFLUX_ORG=LearnGrafana
 INFLUX_BUCKET=Chapter07
-INFLUX_API_TOKEN=9K_eE-rPS3AJQZ4Paieib1iJ0d7COuxRggbgqEG7hf4-at4bp4uLosWBINq7aeJbUpA8EhGqV3NS58ebES5lGQ==
-
-INFLUX_URL=http://influxdb:8086
-INFLUX_ORG=LearnGrafana
-INFLUX_API_TOKEN=7dnOn5arpvJL-rEjnnMQ_KlQqXU73HYx9MxD_wXBEZYnu7-OocEOmAzU5xy6gcZOxeNwstp-wsZxytO3xKymVw==
+INFLUX_API_TOKEN=XuWvVqWanFeaWSPHR-OTfagATO2IdYdt3xOE8nAcTNJGdhjSmXjofA8qhJYxRo7VMW_JMQozck1AeDERMgBQQw==
 
 pull:
 	docker-compose pull
@@ -48,24 +46,36 @@ bucket-delete-weather:
 
 bucket-refresh-weather: bucket-delete-weather bucket-create-weather 
 
+build-weather:
+	docker build --pull --tag $(TAG) .
+
+help-weather:
+		docker run --rm \
+		-v "$$(PWD)/app:/usr/src/app" \
+		--name $(IMAGE)_$(CHAPTER) $(TAG) \
+		$(APPPATH)/weather.py --help
+
 dump-weather:
-	docker run --rm --network=host -v "$$(PWD):/usr/src/app" \
-		--name $(IMAGE) $(TAG) \
-		$(WX_BIN) \
-		--output $(WX_TEMPFILE) \
-		--stations $(WX_STATIONS)
+		docker run --rm \
+		-v "$$(PWD)/app:/usr/src/app" \
+		-v "$$(PWD)/data:/data" \
+		--name $(IMAGE)_$(CHAPTER) $(TAG) \
+		$(APPPATH)/weather.py \
+		--output $(TEMPFILE) \
+		--stations $(STATIONS)
 
 load-weather:
-	docker run --rm --network=host -v "$$(PWD):/usr/src/app" \
-		--name $(IMAGE) $(TAG) \
-		$(WX_BIN) \
- 		--token=$(INFLUX_API_TOKEN) \
-		--input $(WX_TEMPFILE) \
-		--db $(INFLUX_BUCKET)
-
+	docker run --rm --network=host \
+		-v "$$(PWD)/app:/usr/src/app" \
+		-v "$$(PWD)/data:/data" \
+		--name $(IMAGE)_$(CHAPTER) $(TAG) \
+		$(APPPATH)/weather.py \
+ 		--input $(TEMPFILE) \
+		--db $(INFLUX_BUCKET) --token $(INFLUX_API_TOKEN)
 
 reload-weather: dump-weather load-weather
-full-reload-weather: weather-bucket-refresh reload-weather
+
+full-reload-weather: build-weather reload-weather
 
 test-influxdb:
 	curl -i http://localhost:8086/ping

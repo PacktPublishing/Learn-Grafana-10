@@ -793,7 +793,7 @@
           {
             "matcher": {
               "id": "byRegexp",
-              "options": "(\\w+)\\:(temp.+)"
+              "options": "(temp.+)"
             },
             "properties": [
               {
@@ -838,7 +838,7 @@
           {
             "matcher": {
               "id": "byRegexp",
-              "options": "(\\w+)\\:(baromet.+)"
+              "options": "(baromet.+)"
             },
             "properties": [
               {
@@ -903,10 +903,10 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
-          "alias": "$tag_station:$measurement",
+          "alias": "",
           "datasource": {
             "type": "influxdb",
             "uid": "${DS_INFLUXDB}"
@@ -918,7 +918,7 @@
           "resultFormat": "time_series"
         },
         {
-          "alias": "$tag_station:$measurement",
+          "alias": "",
           "datasource": {
             "type": "influxdb",
             "uid": "${DS_INFLUXDB}"
@@ -971,6 +971,6 @@
   "timezone": "",
   "title": "Chapter 7.02 Table Visualization",
   "uid": "s5eqGe-Zk",
-  "version": 9,
+  "version": 10,
   "weekStart": ""
 }

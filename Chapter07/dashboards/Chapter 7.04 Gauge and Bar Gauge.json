@@ -1,4 +1,41 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_INFLUXDB",
+      "label": "InfluxDB",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.1.5"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -25,14 +62,14 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 6,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "cIOG-nt4z"
+        "uid": "${DS_INFLUXDB}"
       },
       "description": "",
       "fieldConfig": {
@@ -41,7 +78,7 @@
             "mode": "thresholds"
           },
           "decimals": 1,
-          "displayName": "${__series.name}",
+          "displayName": "${__field.labels.station}",
           "mappings": [],
           "max": 125,
           "min": 0,
@@ -131,10 +168,10 @@
       "pluginVersion": "10.1.5",
       "targets": [
         {
-          "alias": "$tag_station",
+          "alias": "",
           "datasource": {
             "type": "influxdb",
-            "uid": "cIOG-nt4z"
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -144,10 +181,11 @@
               "type": "tag"
             }
           ],
+          "hide": false,
           "measurement": "windSpeed",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"value\"  / 1000 * 3600 FROM \"windSpeed\" WHERE $timeFilter GROUP BY \"station\"::tag",
+          "query": "SELECT \"value\"  / 1000 * 3600 FROM \"windSpeed\" WHERE $timeFilter GROUP BY \"station\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -176,7 +214,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "cIOG-nt4z"
+        "uid": "${DS_INFLUXDB}"
       },
       "description": "",
       "fieldConfig": {
@@ -243,7 +281,7 @@
           "alias": "$tag_station, $tag_name",
           "datasource": {
             "type": "influxdb",
-            "uid": "cIOG-nt4z"
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -311,6 +349,6 @@
   "timezone": "",
   "title": "Chapter 7.04 Gauge and Bar Gauge",
   "uid": "AhgBDGfWk",
-  "version": 5,
+  "version": 8,
   "weekStart": ""
 }
