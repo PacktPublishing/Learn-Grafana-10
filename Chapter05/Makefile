@@ -1,5 +1,8 @@
-IMAGE=weather
-TAG=$(IMAGE)/ch5
+CHAPTER=ch5
+IMAGE=python
+TAG=$(IMAGE)/$(CHAPTER)
+
+APP=weather.py
 TEMPFILE=wx.txt
 STATIONS=KSFO,KDEN,KSTL,KJFK
 
@@ -40,20 +43,25 @@ influxdb-bucket-delete:
 
 influxdb-bucket-refresh: influxdb-bucket-delete influxdb-bucket-create
 
-build-$(IMAGE):
+build-weather:
 	docker build --pull --tag $(TAG) .
 
-dump-$(IMAGE):
-	docker run --rm --network=host -v "$$(PWD):/usr/src/app" --name $(IMAGE) $(TAG) \
-		--output $(TEMPFILE) --stations $(STATIONS)
+dump-weather:
+	docker run --rm \
+		$(TAG) $(APP) \
+		--output $(TEMPFILE) \
+		--stations $(STATIONS)
 
-load-$(IMAGE):
-	docker run --rm --network=host -v "$$(PWD):/usr/src/app" --name $(IMAGE) $(TAG) \
- 		--input $(TEMPFILE) --db $(INFLUX_BUCKET) --token $(INFLUX_API_TOKEN)
+load-weather:
+	docker run --rm --network=host \
+		-v "$$(PWD):/usr/src/app" \
+		$(TAG) $(APP) \
+ 		--input $(TEMPFILE) \
+		--db $(INFLUX_BUCKET) --token $(INFLUX_API_TOKEN)
 
-reload: dump-$(IMAGE) load-$(IMAGE)
+reload-weather: dump-weather load-weather
 
-full-reload: build-$(IMAGE) dump-$(IMAGE) load-$(IMAGE)
+full-reload-weather: build-weather reload-weather
 
 test-influxdb:
 	curl -i http://localhost:8086/ping
