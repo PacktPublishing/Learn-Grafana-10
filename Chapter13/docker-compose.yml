@@ -1,0 +1,79 @@
+version: "3"
+
+networks:
+  loki:
+
+services:
+  promtail:
+    image: "grafana/promtail:${PROMT_TAG-latest}"
+    ports:
+      - "9080:9080"
+    networks:
+      - loki
+    command: -config.file=/etc/promtail/promtail-local-config.yaml
+    volumes:
+      - "${PWD-.}/promtail/etc:/etc/promtail"
+      - "${PWD-.}/promtail/tmp:/tmp"
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/log:/var/log
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://host.docker.internal:3100/loki/api/v1/push"
+
+  loki:
+    image: "grafana/loki:${LOKI_TAG-latest}"
+    ports:
+      - "3100:3100"
+    networks:
+      - loki
+    # command: -config.file=/etc/loki/loki-config.yaml
+    # volumes:
+    #    - "${PWD-.}/loki/etc:/etc/loki"
+    #    - "${PWD-.}/loki/tmp:/tmp/loki"
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://host.docker.internal:3100/loki/api/v1/push"
+
+  grafana:
+    image: "grafana/grafana:${GRAF_TAG-latest}"
+    ports:
+      - "3000:3000"
+    volumes:
+      - "${PWD-.}/grafana:/var/lib/grafana"
+    networks:
+      - loki
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://host.docker.internal:3100/loki/api/v1/push"
+
+
+  flog:
+    image: mingrammer/flog:${FLOG_TAG-latest}
+    # uncomment the following line if running on an Apple Silicon Mac
+    platform: linux/amd64
+  #  uncomment the following for raw logging
+  #  command: -l -d 1
+  #  uncomment the following for json logging
+    command: -l -f json
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://host.docker.internal:3100/loki/api/v1/push"
+
+  prometheus:
+    image: "prom/prometheus:${PROM_TAG-latest}"
+    ports:
+      - "9090:9090"
+    volumes:
+      - "${PWD-.}/prometheus/etc:/etc/prometheus"
+    command: --config.file=/etc/prometheus/prometheus-config.yaml
+    networks:
+      - loki
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://host.docker.internal:3100/loki/api/v1/push"
+
