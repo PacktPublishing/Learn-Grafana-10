@@ -1,0 +1,33 @@
+services:
+  grafana:
+    image: "grafana/grafana:${GRAF_TAG-latest}"
+    ports:
+      - "3000:3000"
+    # environment:
+      # GF_SMTP_ENABLED: "true"
+      # GF_SMTP_USER: "esalituro@icloud.com"
+      # GF_SMTP_PASSWORD: "lfwe-gyoz-agjg-prbj"
+      # GF_SMTP_HOST: "smtp.mail.me.com:587"
+    volumes:
+      - "${PWD-.}/grafana:/var/lib/grafana"
+
+  influxdb:
+    image: "influxdb:${INFL_TAG-latest}"
+    ports:
+      - "8086:8086"
+    volumes:
+      - "${PWD-.}/influxdb2:/var/lib/influxdb2"
+
+  telegraf:
+    image: "telegraf:${TELE_TAG-latest}"
+    # user: telegraf:0
+    volumes:
+      - "${PWD-.}/telegraf/etc/telegraf.conf:/etc/telegraf/telegraf.conf"
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  nginx:
+    image: nginx
+    ports:
+      - 8080:8080
+    volumes:
+      - "${PWD-.}/nginx/default.conf:/etc/nginx/conf.d/default.conf"
