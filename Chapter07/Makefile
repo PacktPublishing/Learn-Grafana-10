@@ -10,7 +10,7 @@ STATIONS=KSFO,KDEN,KSTL,KJFK
 INFLUX_URL=http://influxdb:8086
 INFLUX_ORG=LearnGrafana
 INFLUX_BUCKET=Chapter07
-INFLUX_API_TOKEN=XuWvVqWanFeaWSPHR-OTfagATO2IdYdt3xOE8nAcTNJGdhjSmXjofA8qhJYxRo7VMW_JMQozck1AeDERMgBQQw==
+#FLUX_API_TOKEN=
 
 pull:
 	docker-compose pull
@@ -50,13 +50,13 @@ build-weather:
 	docker build --pull --tag $(TAG) .
 
 help-weather:
-		docker run --rm \
+	docker run --rm \
 		-v "$$(PWD)/app:/usr/src/app" \
 		--name $(IMAGE)_$(CHAPTER) $(TAG) \
 		$(APPPATH)/weather.py --help
 
 dump-weather:
-		docker run --rm \
+	docker run --rm \
 		-v "$$(PWD)/app:/usr/src/app" \
 		-v "$$(PWD)/data:/data" \
 		--name $(IMAGE)_$(CHAPTER) $(TAG) \
@@ -74,7 +74,6 @@ load-weather:
 		--db $(INFLUX_BUCKET) --token $(INFLUX_API_TOKEN)
 
 reload-weather: dump-weather load-weather
-
 full-reload-weather: build-weather reload-weather
 
 test-influxdb:
