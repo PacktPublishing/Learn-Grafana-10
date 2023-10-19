@@ -5,7 +5,7 @@ import sys
 
 
 def escape_string(string):
-    return string.translate(string.maketrans({",": "\,", " ": "\ ", "=": "\="}))
+    return string.translate(string.maketrans({",": r"\,", " ": r"\ ", "=": r"\="}))
 
 
 def dump_eq_data(size, window, output):
