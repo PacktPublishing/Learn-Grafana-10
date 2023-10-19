@@ -1,20 +1,18 @@
+CHAPTER=ch8
 IMAGE=python
-TAG=$(IMAGE)/ch8
+TAG=$(IMAGE)/$(CHAPTER)
 
-WX_BIN=bin/weather.py
-WX_BUCKET=weatherdb
-WX_TEMPFILE=data/wx.txt
-WX_STATIONS=KSFO,KDEN,KSTL,KJFK
+APPPATH=/usr/src/app
+APP=earthquake.py
+TEMPFILE=/data/eq.txt
 
-EQ_BIN=bin/earthquake.py
-EQ_BUCKET=Chapter08
-EQ_TEMPFILE=data/eq.txt
 EQ_SIZE=all
 EQ_WINDOW=week
 EQ_PRECISION=ms
 
 INFLUX_URL=http://influxdb:8086
 INFLUX_ORG=LearnGrafana
+INFLUX_BUCKET=Chapter08
 INFLUX_API_TOKEN=9K_eE-rPS3AJQZ4Paieib1iJ0d7COuxRggbgqEG7hf4-at4bp4uLosWBINq7aeJbUpA8EhGqV3NS58ebES5lGQ==
 
 pull:
@@ -51,28 +49,40 @@ bucket-delete-earthquake:
 
 bucket-refresh-earthquake: bucket-delete-bucket bucket-create-earthquake 
 
+build-earthquake:
+	docker build --pull --tag $(TAG) .
+
+help-earthquake:
+	docker run --rm \
+		-v "$$(PWD)/app:/usr/src/app" \
+		--name $(IMAGE)_$(CHAPTER) $(TAG) \
+		$(APPPATH)/$(APP) --help
+
 dump-earthquake:
-	docker run --rm --network=host -v "$$(PWD):/usr/src/app" \
-		--name $(IMAGE) $(TAG) \
-		earthquake.py \
+	docker run --rm \
+		-v "$$(PWD)/app:/usr/src/app" \
+		-v "$$(PWD)/data:/data" \
+		--name $(IMAGE)_$(CHAPTER) $(TAG) \
+		$(APPPATH)/$(APP) \
 		--size $(EQ_SIZE) \
 		--window $(EQ_WINDOW) \
-		--output $(EQ_TEMPFILE)
+		--output $(TEMPFILE)
 
 load-earthquake:
-	docker run --rm --network=host -v "$$(PWD):/usr/src/app" \
-		--name $(IMAGE) $(TAG) \
-		earthquake.py \
-		--token=$(INFLUX_API_TOKEN) \
-		--input $(EQ_TEMPFILE) \
+	docker run --rm --network=host \
+		-v "$$(PWD)/app:/usr/src/app" \
+		-v "$$(PWD)/data:/data" \
+		--name $(IMAGE)_$(CHAPTER) $(TAG) \
+		$(APPPATH)/$(APP) \
+		--input $(TEMPFILE) \
 		--precision $(EQ_PRECISION) \
-		--db $(EQ_BUCKET)
-
+		--db $(INFLUX_BUCKET) \
+		--token=$(INFLUX_API_TOKEN)
 
 reload-earthquake: dump-earthquake load-earthquake
-full-load-earthquake: bucket-refresh-earthquake reload-earthquake
+full-reload-earthquake: build-earthquake reload-earthquake
 
 test-influxdb:
 	curl -i http://localhost:8086/ping
 
-auto: build up test-influxdb build-$(IMAGE) full-load-weather full-load-earthquake
+auto: build up test-influxdb build-$(IMAGE) full-load-earthquake
