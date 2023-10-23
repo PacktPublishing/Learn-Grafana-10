@@ -9,7 +9,7 @@ import time
 
 
 def escape_string(string):
-    return string.translate(string.maketrans({",": "\,", " ": "\ ", "=": "\="}))
+    return string.translate(string.maketrans({",": r"\,", " ": r"\ ", "=": r"\="}))
 
 def time_to_string(t):
     epoch_secs = int(t/1000)

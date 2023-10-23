@@ -19,4 +19,5 @@ services:
     environment:
       TZ: "America/Los_Angeles"
     volumes:
-      - "${PWD-.}:/usr/src/app"
+      - "${PWD-.}/app:/usr/src/app"
+      - "${PWD-.}/data:/data"
