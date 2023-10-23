@@ -1,47 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_INFLUXDB_EARTHQUAKE",
-      "label": "InfluxDB Earthquake",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "influxdb",
-      "pluginName": "InfluxDB"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "geomap",
-      "name": "Geomap",
-      "version": ""
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "10.1.2"
-    },
-    {
-      "type": "datasource",
-      "id": "influxdb",
-      "name": "InfluxDB",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -68,14 +25,14 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_EARTHQUAKE}"
+        "uid": "vnQq4hT4z"
       },
       "description": "",
       "fieldConfig": {
@@ -135,12 +92,12 @@
         },
         "textMode": "value_and_name"
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_EARTHQUAKE}"
+            "uid": "vnQq4hT4z"
           },
           "groupBy": [
             {
@@ -283,7 +240,7 @@
         },
         "textMode": "value_and_name"
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -337,7 +294,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_EARTHQUAKE}"
+        "uid": "vnQq4hT4z"
       },
       "description": "",
       "fieldConfig": {
@@ -423,12 +380,12 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_EARTHQUAKE}"
+            "uid": "vnQq4hT4z"
           },
           "groupBy": [
             {
@@ -576,7 +533,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -613,7 +570,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_EARTHQUAKE}"
+        "uid": "vnQq4hT4z"
       },
       "description": "",
       "fieldConfig": {
@@ -724,12 +681,12 @@
           "zoom": 5.5
         }
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_EARTHQUAKE}"
+            "uid": "vnQq4hT4z"
           },
           "groupBy": [
             {
@@ -882,7 +839,7 @@
           "zoom": 4
         }
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -1014,7 +971,7 @@
           "zoom": 2
         }
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {

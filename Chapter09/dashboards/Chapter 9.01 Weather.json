@@ -15,7 +15,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "10.1.2"
+      "version": "10.1.5"
     },
     {
       "type": "datasource",
@@ -92,7 +92,7 @@
         "content": "<h1>\n  <center>San Francisco CA (KSFO)</center>\n</h1> ",
         "mode": "html"
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "10.1.5",
       "title": "Station",
       "type": "text"
     },
@@ -140,7 +140,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "10.1.2",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -1440,8 +1440,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1745,8 +1744,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1883,8 +1881,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1946,6 +1943,6 @@
   "timezone": "",
   "title": "Chapter 9.01 Weather",
   "uid": "dTjV-Do4k",
-  "version": 8,
+  "version": 9,
   "weekStart": ""
 }
