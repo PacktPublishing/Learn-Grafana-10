@@ -10,7 +10,7 @@ STATIONS=KSFO,KDEN,KSTL,KJFK
 INFLUX_URL=http://influxdb:8086
 INFLUX_ORG=LearnGrafana
 INFLUX_BUCKET=Chapter07
-#FLUX_API_TOKEN=
+#INFLUX_API_TOKEN=
 
 pull:
 	docker-compose pull
