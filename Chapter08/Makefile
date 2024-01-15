@@ -13,7 +13,7 @@ EQ_PRECISION=ms
 INFLUX_URL=http://influxdb:8086
 INFLUX_ORG=LearnGrafana
 INFLUX_BUCKET=Chapter08
-INFLUX_API_TOKEN=***REMOVED***
+#INFLUX_API_TOKEN=
 
 pull:
 	docker-compose pull
