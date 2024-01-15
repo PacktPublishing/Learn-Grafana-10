@@ -3,7 +3,7 @@ PY_SERVICE=python
 
 INFLUX_ORG=LearnGrafana
 CH12_BUCKET=Chapter12
-INFLUX_API_TOKEN="***REMOVED***"
+#INFLUX_API_TOKEN=
 
 up-%:
 	docker-compose up --pull missing -d $*
