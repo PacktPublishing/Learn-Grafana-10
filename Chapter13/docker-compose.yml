@@ -1,5 +1,3 @@
-version: "3"
-
 networks:
   loki:
 
@@ -27,10 +25,10 @@ services:
       - "3100:3100"
     networks:
       - loki
-    # command: -config.file=/etc/loki/loki-config.yaml
-    # volumes:
-    #    - "${PWD-.}/loki/etc:/etc/loki"
-    #    - "${PWD-.}/loki/tmp:/tmp/loki"
+    command: -config.file=/etc/loki/loki-config.yaml
+    volumes:
+       - "${PWD-.}/loki/etc:/etc/loki"
+       - "${PWD-.}/loki/tmp:/tmp/loki"
     logging:
       driver: loki
       options:
@@ -57,7 +55,7 @@ services:
   #  uncomment the following for raw logging
   #  command: -l -d 1
   #  uncomment the following for json logging
-    command: -l -f json
+  # command: -l -f json
     logging:
       driver: loki
       options:
