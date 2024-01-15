@@ -8,7 +8,6 @@ DATADIR=data
 CSVFILE=Current_FY_Cases.csv
 INDEX=data-index
 
-PASS=***REMOVED***
 
 pull:
 	docker-compose pull
