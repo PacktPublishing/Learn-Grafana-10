@@ -8,7 +8,6 @@ DATADIR=data
 CSVFILE=Current_FY_Cases.csv
 INDEX=data-index
 
-PASS=tcL1ZZ*eWYSDe8s_PpE4
 
 pull:
 	docker-compose pull
