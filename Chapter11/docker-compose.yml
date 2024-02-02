@@ -1,0 +1,28 @@
+services:
+  grafana:
+    image: "grafana/grafana:${GRAF_TAG-latest}"
+    ports:
+      - "3000:3000"
+    volumes:
+      - "${PWD-.}/grafana:/var/lib/grafana"
+
+  telegraf:
+    image: "telegraf:${TELE_TAG-latest}"
+    volumes:
+      - "${PWD-.}/telegraf/etc/telegraf.conf:/etc/telegraf/telegraf.conf"
+
+  mosquitto:
+    image: "eclipse-mosquitto:${MOSQ_TAG-latest}"
+    ports:
+      - "1883:1883"
+    volumes:
+      - "${PWD-.}/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf"
+
+  python:
+    build: .
+    image: python:ch11
+    environment:
+      TZ: "America/Los_Angeles"
+    volumes:
+      - "${PWD-.}/app:/usr/src/app"
+      - "${PWD-.}/data:/data"
