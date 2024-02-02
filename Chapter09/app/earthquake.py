@@ -2,11 +2,20 @@ import argparse
 import logging
 import requests
 import sys
+import time
+
+# print(time.localtime())
+# print(time.gmtime())
 
 
 def escape_string(string):
-    return string.translate(string.maketrans({",": "\,", " ": "\ ", "=": "\="}))
+    return string.translate(string.maketrans({",": r"\,", " ": r"\ ", "=": r"\="}))
 
+def time_to_string(t):
+    epoch_secs = int(t/1000)
+    ltime = time.localtime(epoch_secs)
+    ftime = time.strftime('%Y-%m-%d %H:%M:%S', ltime)
+    return ftime
 
 def dump_eq_data(size, window, output):
     url = f"https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/{size}_{window}.geojson"
@@ -32,6 +41,7 @@ def dump_eq_data(size, window, output):
             f"tag_longitude={lon}",
             f"tag_place={escape_string(properties['place'])}",
             f"tag_alert={properties['alert']}",
+            f"tag_time={escape_string(time_to_string(properties['time']))}"
         ]
 
         fields = [
