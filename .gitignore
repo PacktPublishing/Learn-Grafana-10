@@ -43,5 +43,8 @@ influxd.sqlite
 ldap/
 slapd.d/
 
+## promtail
+*/promtail/tmp/
+
 # virtualenv
 venv/
