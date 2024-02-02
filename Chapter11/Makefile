@@ -1,11 +1,12 @@
 IMAGE=python
 PY_SERVICE=python
 
-MQTT_BIN=bin/mqtt_pub.py
+APPPATH=/usr/src/app
+APP=mqtt_pub.py
 BROKER=mosquitto
 TOPIC="thermostat/mqtt"
 INTERVAL=5
-INPUT="data/thermostat_events.csv"
+INPUT="/data/thermostat_events.csv"
 
 up-%:
 	docker-compose up --pull missing -d $*
@@ -22,10 +23,16 @@ stop:
 build-$(IMAGE):
 	docker-compose build --pull python
 
+help-events:
+	docker-compose run --rm \
+		--name $(IMAGE) $(PY_SERVICE) \
+		$(APPPATH)/$(APP) \
+		--help
+
 dump-events:
 	docker-compose run --rm \
 		--name $(IMAGE) $(PY_SERVICE) \
-		$(MQTT_BIN) \
+		$(APPPATH)/$(APP) \
 		--broker $(BROKER) \
 		--topic $(TOPIC) \
 		--input $(INPUT) \

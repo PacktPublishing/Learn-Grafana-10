@@ -1,18 +1,22 @@
-IMAGE=weather
-TAG=$(IMAGE)/ch6
+CHAPTER=ch6
+IMAGE=python
+TAG=$(IMAGE)/$(CHAPTER)
+
+APP=weather.py
 TEMPFILE=wx.txt
 STATIONS=KSFO,KDEN,KSTL,KJFK
 
 INFLUX_URL=http://influxdb:8086
 INFLUX_ORG=LearnGrafana
 INFLUX_BUCKET=chapter06
-INFLUX_API_TOKEN=***REMOVED***
+#INFLUX_API_TOKEN=
+
 
 pull:
 	docker-compose pull
 
 up:
-	docker-compose up -d
+	docker-compose up -d --pull missing
 
 down:
 	docker-compose down
@@ -27,36 +31,37 @@ influxdb-bucket-create:
 	docker-compose exec -T \
     	influxdb influx bucket create  \
         --org $(INFLUX_ORG) \
-        --token=$(INFLUX_API_TOKEN) \
+        --token $(INFLUX_API_TOKEN) \
 		--name $(INFLUX_BUCKET)
 
 influxdb-bucket-delete:
 	docker-compose exec -T \
     	influxdb influx bucket delete  \
         --org $(INFLUX_ORG) \
-        --token=$(INFLUX_API_TOKEN) \
+        --token $(INFLUX_API_TOKEN) \
 		--name $(INFLUX_BUCKET)
 
 influxdb-bucket-refresh: influxdb-bucket-delete influxdb-bucket-create
 
-build-$(IMAGE):
+build-weather:
 	docker build --pull --tag $(TAG) .
 
-dump-$(IMAGE):
-	docker run --rm --network=host -v "$$(PWD):/usr/src/app" \
-		--name $(IMAGE) $(TAG) \
+dump-weather:
+	docker run --rm \
+		$(TAG) $(APP) \
 		--output $(TEMPFILE) \
 		--stations $(STATIONS)
 
-load-$(IMAGE):
-	docker run --rm --network=host -v "$$(PWD):/usr/src/app" \
-		--name $(IMAGE) $(TAG) \
+load-weather:
+	docker run --rm --network=host \
+		-v "$$(PWD):/usr/src/app" \
+		$(TAG) $(APP) \
  		--input $(TEMPFILE) \
-		--db $(INFLUX_BUCKET) \
-		--token=$(INFLUX_API_TOKEN)
+		--db $(INFLUX_BUCKET) --token $(INFLUX_API_TOKEN)
 
-reload: dump-$(IMAGE) load-$(IMAGE)
-full-load: influxdb-bucket-refresh build-$(IMAGE) dump-$(IMAGE) load-$(IMAGE)
+reload-weather: dump-weather load-weather
+
+full-reload-weather: build-weather reload-weather
 
 test-influxdb:
 	curl -i http://localhost:8086/ping
