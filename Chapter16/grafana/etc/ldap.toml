@@ -1,0 +1,52 @@
+[[servers]]
+# Ldap server host (specify multiple hosts space separated)
+#host = "127.0.0.1"
+host = "ldap"
+# Default port is 389 or 636 if use_ssl = true
+port = 389
+# Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS)
+use_ssl = false
+# If set to true, use LDAP with STARTTLS instead of LDAPS
+start_tls = false
+# The value of an accepted TLS cipher. By default, this value is empty. Example value: ["TLS_AES_256_GCM_SHA384"])
+# For a complete list of supported ciphers and TLS versions, refer to: https://go.dev/src/crypto/tls/cipher_suites.go
+tls_ciphers = []
+# This is the minimum TLS version allowed. By default, this value is empty. Accepted values are: TLS1.1, TLS1.2, TLS1.3.
+min_tls_version = ""
+# set to true if you want to skip SSL cert validation
+ssl_skip_verify = false
+# set to the path to your root CA certificate or leave unset to use system defaults
+# root_ca_cert = "/path/to/certificate.crt"
+# Authentication against LDAP servers requiring client certificates
+# client_cert = "/path/to/client.crt"
+# client_key = "/path/to/client.key"
+
+# Search user bind dn
+bind_dn = "cn=admin,dc=grafana,dc=org"
+# Search user bind password
+# If the password contains # or ; you have to wrap it with triple quotes. Ex """#password;"""
+#bind_password = "grafana"
+# We recommend using variable expansion for the bind_password, for more info https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#variable-expansion
+bind_password = "${LDAP_ADMIN_PASSWORD}"
+
+# Timeout in seconds. Applies to each host specified in the 'host' entry (space separated).
+timeout = 10
+
+# User search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)"
+# Allow login from email or username, example "(|(sAMAccountName=%s)(userPrincipalName=%s))"
+search_filter = "(cn=%s)"
+
+# An array of base dns to search through
+search_base_dns = ["dc=grafana,dc=org"]
+
+# group_search_filter = "(&(objectClass=posixGroup)(memberUid=%s))"
+# group_search_filter_user_attribute = "distinguishedName"
+# group_search_base_dns = ["ou=groups,dc=grafana,dc=org"]
+
+# Specify names of the LDAP attributes your LDAP uses
+[servers.attributes]
+name = "givenName"
+surname = "sn"
+username = "cn"
+member_of = "memberOf"
+email =  "mail"

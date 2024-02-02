@@ -1,47 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_INFLUXDB_EARTHQUAKE",
-      "label": "InfluxDB Earthquake",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "influxdb",
-      "pluginName": "InfluxDB"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "geomap",
-      "name": "Geomap",
-      "version": ""
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "9.4.7"
-    },
-    {
-      "type": "datasource",
-      "id": "influxdb",
-      "name": "InfluxDB",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -64,17 +21,18 @@
       }
     ]
   },
+  "description": "",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_EARTHQUAKE}"
+        "uid": "vnQq4hT4z"
       },
       "description": "",
       "fieldConfig": {
@@ -129,17 +87,17 @@
           "values": true
         },
         "text": {
-          "titleSize": 70,
+          "titleSize": 60,
           "valueSize": 120
         },
         "textMode": "value_and_name"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_EARTHQUAKE}"
+            "uid": "vnQq4hT4z"
           },
           "groupBy": [
             {
@@ -158,7 +116,7 @@
           "measurement": "event",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"magnitude\" FROM \"event\" WHERE $timeFilter AND \"magnitude\" >= 2.0 GROUP BY \"tag_place\", \"tag_time\"",
+          "query": "SELECT \"magnitude\" FROM \"event\" WHERE $timeFilter AND \"magnitude\" >= 2.0 GROUP BY \"tag_place\"::tag, \"tag_time\"::tag",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -277,12 +235,12 @@
           "values": true
         },
         "text": {
-          "titleSize": 70,
+          "titleSize": 60,
           "valueSize": 120
         },
         "textMode": "value_and_name"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -336,7 +294,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_EARTHQUAKE}"
+        "uid": "vnQq4hT4z"
       },
       "description": "",
       "fieldConfig": {
@@ -410,6 +368,7 @@
       },
       "id": 6,
       "options": {
+        "cellHeight": "sm",
         "footer": {
           "countRows": false,
           "fields": "",
@@ -421,12 +380,12 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_EARTHQUAKE}"
+            "uid": "vnQq4hT4z"
           },
           "groupBy": [
             {
@@ -562,6 +521,7 @@
       },
       "id": 17,
       "options": {
+        "cellHeight": "sm",
         "footer": {
           "countRows": false,
           "fields": "",
@@ -573,7 +533,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -610,7 +570,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB_EARTHQUAKE}"
+        "uid": "vnQq4hT4z"
       },
       "description": "",
       "fieldConfig": {
@@ -721,12 +681,12 @@
           "zoom": 5.5
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB_EARTHQUAKE}"
+            "uid": "vnQq4hT4z"
           },
           "groupBy": [
             {
@@ -879,7 +839,7 @@
           "zoom": 4
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -1011,7 +971,7 @@
           "zoom": 2
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -1027,7 +987,6 @@
     }
   ],
   "refresh": "",
-  "revision": 1,
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -1040,8 +999,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Chapter 9.02",
+  "title": "Chapter 9.02 Earthquake",
   "uid": "2jnC4hTVk",
-  "version": 15,
+  "version": 19,
   "weekStart": ""
 }
