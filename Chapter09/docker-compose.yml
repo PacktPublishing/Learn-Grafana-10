@@ -15,8 +15,9 @@ services:
 
   python:
     build: .
-    image: python:ch9
+    image: "python/ch9"
     environment:
       TZ: "America/Los_Angeles"
     volumes:
-      - "${PWD-.}:/usr/src/app"
+      - "${PWD-.}/app:/usr/src/app"
+      - "${PWD-.}/data:/data"
