@@ -87,7 +87,7 @@ class MQTTMetric:
 
     @staticmethod
     def escape_string(string):
-        return string.translate(string.maketrans({",": "\,", " ": "\ ", "=": "\="}))
+        return string.translate(string.maketrans({",": r"\,", " ": r"\ ", "=": r"\="}))
 
     @staticmethod
     def quote_string(string):

@@ -15,11 +15,36 @@
 # OSX
 .DS_Store
 
-# Transient directories
-grafana/
-prometheus/
-influxdb2/
-loki/
-elasticsearch/
+# Transient directories and files
+
+*.txt
+
+## grafana
+*/grafana/alerting/
+*/grafana/csv
+*/grafana/file-collections
+*/grafana/plugins
+*/grafana/png
+*/grafana/data
+grafana.db
+
+## influxdb
+*/influxdb2/engine/
+influxd.bolt
+influxd.sqlite
+
+## loki
+*/loki/tmp/
+
+## elasticsearch
+*/elasticsearch/data/
+
+## ldap
 ldap/
 slapd.d/
+
+## promtail
+*/promtail/tmp/
+
+# virtualenv
+venv/
