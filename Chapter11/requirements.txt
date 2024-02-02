@@ -1,2 +1,9 @@
-paho-mqtt
-pyyaml
+-i https://pypi.org/simple
+black==23.12.1; python_version >= '3.8'
+click==8.1.7; python_version >= '3.7'
+mypy-extensions==1.0.0; python_version >= '3.5'
+packaging==23.2; python_version >= '3.7'
+paho-mqtt==1.6.1
+pathspec==0.12.1; python_version >= '3.8'
+platformdirs==4.1.0; python_version >= '3.8'
+pyyaml==6.0.1; python_version >= '3.6'
