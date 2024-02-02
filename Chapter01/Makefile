@@ -3,7 +3,7 @@ pull:
 	docker-compose pull
 
 up:
-	docker-compose up -d
+	docker-compose up --pull -d
 
 down:
 	docker-compose down
