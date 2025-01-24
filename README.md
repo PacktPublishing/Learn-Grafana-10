@@ -1,6 +1,3 @@
-
-<b><p align='center'>[![Packt Sale](https://static.packt-cdn.com/assets/images/e72907cf-bf2f-4f83-bb58-6cc08a901ff9.jpeg)](https://www.packtpub.com/)</p></b>Get this book on sale at [Packt](https://www.packtpub.com/).
-
 # Learn Grafana 10.x
 
 <a href="https://www.packtpub.com/product/learn-grafana-10x-second-edition/9781803231082"><img src="https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/71kt+Q-vBWL._SL1500_.jpg" alt="Learn Grafana 10.x" height="256px" align="right"></a>
