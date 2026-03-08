@@ -1,5 +1,5 @@
 -i https://pypi.org/simple
-black==23.12.1; python_version >= '3.8'
+black==24.3.0; python_version >= '3.8'
 certifi==2023.11.17; python_version >= '3.6'
 charset-normalizer==3.3.2; python_full_version >= '3.7.0'
 click==8.1.7; python_version >= '3.7'
